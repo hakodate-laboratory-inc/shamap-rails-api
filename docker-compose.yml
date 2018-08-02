@@ -11,6 +11,6 @@ services:
     volumes:
       - .:/myapp
     ports:
-      - ${PORT:-3000}:${PORT:-3000}
+      - ${WEB_PORT:-3000}:${WEB_PORT:-3000}
     depends_on:
       - db
