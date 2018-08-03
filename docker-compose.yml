@@ -4,6 +4,7 @@ services:
     image: postgres:10.4-alpine
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+
   web:
     build: .
     env_file: .env
@@ -12,5 +13,5 @@ services:
       - .:/myapp
     ports:
       - ${WEB_PORT:-3000}:${WEB_PORT:-3000}
-    depends_on:
+    links:
       - db

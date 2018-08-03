@@ -40,7 +40,9 @@ group :development, :test do
   # Pre commit
   gem "pre-commit", require: false
   gem "onkcop", require: false
+  # Test
   gem "rspec-rails", "~> 3.7"
+  gem "factory_bot_rails", "~> 4.0"
 end
 
 group :development do
