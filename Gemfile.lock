@@ -113,6 +113,7 @@ GEM
       pluginator (~> 1.5)
     puma (3.12.0)
     rack (2.0.5)
+    rack-cors (1.0.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
@@ -214,6 +215,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pre-commit
   puma (~> 3.11)
+  rack-cors
   rails (~> 5.2.0)
   rspec-rails (~> 3.7)
   spring
@@ -224,4 +226,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.3
