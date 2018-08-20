@@ -7,12 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3001',
-            'elegant-fermi-b93fc6.netlify.com'
+    origins "localhost:3001",
+            "elegant-fermi-b93fc6.netlify.com"
 
-    resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      expose: ['uid', 'client', 'expiry', 'access-token', 'token-type']
+    resource "*",
+             headers: :any,
+             methods: [:get, :post, :put, :patch, :delete, :options, :head],
+             expose: ["uid", "client", "expiry", "access-token", "token-type"]
   end
 end
