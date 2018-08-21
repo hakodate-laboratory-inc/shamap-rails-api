@@ -5,7 +5,7 @@
 Share your map.
 
 ## Development
-You have to execute like below at first.
+You have to execute like below at first.
 ```shell
 touch .env
 

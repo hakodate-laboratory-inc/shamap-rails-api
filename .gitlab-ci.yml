@@ -14,8 +14,13 @@ before_script:
   - ruby -v
   - which ruby
   - gem install bundler --no-ri --no-rdoc
-  - bundle install --jobs $(nproc)  "${FLAGS[@]}"
+  - bundle install --jobs $(nproc) --path vendor
   - bundle exec rake db:create db:schema:load
+
+cache:
+  key: #{CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/ruby
 
 rspec:
   script:
