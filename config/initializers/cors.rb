@@ -8,7 +8,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins "localhost:3001",
-            "elegant-fermi-b93fc6.netlify.com"
+            /(.*--)?elegant-fermi-b93fc6\.netlify\.com/
 
     resource "*",
              headers: :any,
