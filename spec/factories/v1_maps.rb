@@ -15,7 +15,7 @@
 #
 
 FactoryBot.define do
-  factory :v1_map, class: 'V1::Map' do
+  factory :v1_map, class: "V1::Map" do
     title "MyString"
     slug "MyString"
     description "MyText"

@@ -7,7 +7,7 @@ class CreateV1Maps < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
- 
+
     add_index :v1_maps, :slug, unique: true
   end
 end
