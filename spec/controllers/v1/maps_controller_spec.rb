@@ -6,7 +6,7 @@ RSpec.describe V1::MapsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    skip("Skip")
+    FactoryBot.attributes_for(:invalid_v1_map)
   }
 
   let(:user) {
@@ -64,7 +64,9 @@ RSpec.describe V1::MapsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { title: "NewString",
+          slug: "NewString",
+          description: "NewText" }
       }
 
       before do
@@ -73,9 +75,10 @@ RSpec.describe V1::MapsController, type: :controller do
 
       it "updates the requested v1_map" do
         map = V1::Map.create! valid_attributes
-        put :update, params: { id: map.to_param, v1_map: new_attributes }
-        map.reload
-        skip("Add assertions for updated state")
+        expect {
+          put :update, params: { id: map.to_param, v1_map: new_attributes }
+          map.reload
+        }.to change { map.title }.from("MyString").to("NewString")
       end
 
       it "renders a JSON response with the v1_map" do

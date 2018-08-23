@@ -20,4 +20,10 @@ FactoryBot.define do
     slug "MyString"
     description "MyText"
   end
+
+  factory :invalid_v1_map, class: "V1::Map" do
+    title ""
+    slug ""
+    description ""
+  end
 end

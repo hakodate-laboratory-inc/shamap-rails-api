@@ -17,5 +17,23 @@
 require "rails_helper"
 
 RSpec.describe V1::Map, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:valid_attributes) {
+    FactoryBot.attributes_for(:v1_map)
+  }
+
+  let(:invalid_attributes) {
+    FactoryBot.attributes_for(:invalid_v1_map)
+  }
+
+  describe("Basic test") do
+    it("is valid") do
+      map = V1::Map.new(valid_attributes)
+      expect(map).to be_valid
+    end
+
+    it("is invalid") do
+      map = V1::Map.new(invalid_attributes)
+      expect(map).to be_invalid
+    end
+  end
 end

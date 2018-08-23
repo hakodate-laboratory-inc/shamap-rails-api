@@ -15,5 +15,6 @@
 #
 
 class V1::Map < ApplicationRecord
-  validates :slug, uniqueness: true
+  validates :title, presence: true
+  validates :slug, presence: true, uniqueness: true
 end
