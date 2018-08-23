@@ -17,4 +17,8 @@
 class V1::Map < ApplicationRecord
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: true
+
+  def to_param
+    slug
+  end
 end

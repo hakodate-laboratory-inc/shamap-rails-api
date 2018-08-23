@@ -43,7 +43,7 @@ class V1::MapsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_v1_map
-      @v1_map = V1::Map.find(params[:id])
+      @v1_map = V1::Map.find_by(slug: params[:slug])
     end
 
     # Only allow a trusted parameter "white list" through.

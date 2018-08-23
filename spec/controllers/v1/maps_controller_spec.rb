@@ -23,7 +23,7 @@ RSpec.describe V1::MapsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       map = V1::Map.create! valid_attributes
-      get :show, params: { id: map.to_param }
+      get :show, params: { slug: map.to_param }
       expect(response).to be_successful
     end
   end
@@ -76,7 +76,7 @@ RSpec.describe V1::MapsController, type: :controller do
       it "updates the requested v1_map" do
         map = V1::Map.create! valid_attributes
         expect {
-          put :update, params: { id: map.to_param, v1_map: new_attributes }
+          put :update, params: { slug: map.to_param, v1_map: new_attributes }
           map.reload
         }.to change { map.title }.from("MyString").to("NewString")
       end
@@ -84,7 +84,7 @@ RSpec.describe V1::MapsController, type: :controller do
       it "renders a JSON response with the v1_map" do
         map = V1::Map.create! valid_attributes
 
-        put :update, params: { id: map.to_param, v1_map: valid_attributes }
+        put :update, params: { slug: map.to_param, v1_map: valid_attributes }
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq("application/json")
       end
@@ -98,7 +98,7 @@ RSpec.describe V1::MapsController, type: :controller do
       it "renders a JSON response with errors for the v1_map" do
         map = V1::Map.create! valid_attributes
 
-        put :update, params: { id: map.to_param, v1_map: invalid_attributes }
+        put :update, params: { slug: map.to_param, v1_map: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq("application/json")
       end
@@ -113,7 +113,7 @@ RSpec.describe V1::MapsController, type: :controller do
     it "destroys the requested v1_map" do
       map = V1::Map.create! valid_attributes
       expect {
-        delete :destroy, params: { id: map.to_param }
+        delete :destroy, params: { slug: map.to_param }
       }.to change(V1::Map, :count).by(-1)
     end
   end
