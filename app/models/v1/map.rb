@@ -15,8 +15,11 @@
 #
 
 class V1::Map < ApplicationRecord
+  has_many :layers, class_name: "V1::Layer", inverse_of: "map", dependent: :destroy
+
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: true
+  validates :description, presence: true
 
   def to_param
     slug
