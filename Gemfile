@@ -42,6 +42,7 @@ group :development, :test do
   gem "pre-commit", require: false
   # Test
   gem "factory_bot_rails", "~> 4.0"
+  gem "faker", require: false
   gem "rspec-rails", "~> 3.7"
 end
 

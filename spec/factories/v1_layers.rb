@@ -21,8 +21,14 @@
 
 FactoryBot.define do
   factory :v1_layer, class: "V1::Layer" do
-    map { FactoryBot.build(:v1_map) }
+    # map { FactoryBot.build(:v1_map) }
     name "MyString"
     slug "MyString"
+  end
+
+  factory :invalid_v1_layer, class: "V1::Layer" do
+    # map { FactoryBot.build(:v1_map) }
+    name ""
+    slug ""
   end
 end
