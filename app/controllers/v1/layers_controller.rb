@@ -1,9 +1,10 @@
 class V1::LayersController < ApplicationController
+  before_action :set_v1_map
   before_action :set_v1_layer, only: [:show, :update, :destroy]
 
   # GET /v1/layers
   def index
-    @v1_layers = V1::Layer.all
+    @v1_layers = @v1_map.layers
 
     render json: @v1_layers
   end
@@ -15,7 +16,7 @@ class V1::LayersController < ApplicationController
 
   # POST /v1/layers
   def create
-    @v1_layer = V1::Layer.new(v1_layer_params)
+    @v1_layer = @v1_map.layers.new(v1_layer_params)
 
     if @v1_layer.save
       render json: @v1_layer, status: :created, location: v1_map_layer_url(id: @v1_layer)
@@ -40,13 +41,15 @@ class V1::LayersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_v1_layer
-      @v1_layer = V1::Layer.find(params[:id])
+    def set_v1_map
+      @v1_map = V1::Map.find_by(slug: params[:map_slug])
     end
 
-    # Only allow a trusted parameter "white list" through.
+    def set_v1_layer
+      @v1_layer = @v1_map.layers.find(params[:id])
+    end
+
     def v1_layer_params
-      params.require(:v1_layer).permit(:map_id, :name, :slug)
+      params.require(:v1_layer).permit(:name, :slug)
     end
 end

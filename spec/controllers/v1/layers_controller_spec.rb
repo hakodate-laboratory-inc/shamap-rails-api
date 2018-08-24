@@ -7,11 +7,11 @@ RSpec.describe V1::LayersController, type: :controller do
   }
 
   let(:valid_attributes) {
-    FactoryBot.attributes_for(:v1_layer).merge(map_id: map.id)
+    FactoryBot.attributes_for(:v1_layer)
   }
 
   let(:invalid_attributes) {
-    FactoryBot.attributes_for(:invalid_v1_layer, map: map)
+    FactoryBot.attributes_for(:invalid_v1_layer)
   }
 
   describe "GET #index" do
@@ -23,7 +23,7 @@ RSpec.describe V1::LayersController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      layer = V1::Layer.create! valid_attributes
+      layer = V1::Layer.create! valid_attributes.merge(map: map)
       get :show, params: { map_slug: map.to_param, id: layer.to_param }
       expect(response).to be_successful
     end
@@ -62,7 +62,7 @@ RSpec.describe V1::LayersController, type: :controller do
       }
 
       it "updates the requested v1_layer" do
-        layer = V1::Layer.create! valid_attributes
+        layer = V1::Layer.create! valid_attributes.merge(map: map)
         expect {
           put :update, params: { map_slug: map.to_param, id: layer.to_param, v1_layer: new_attributes }
           layer.reload
@@ -70,7 +70,7 @@ RSpec.describe V1::LayersController, type: :controller do
       end
 
       it "renders a JSON response with the v1_layer" do
-        layer = V1::Layer.create! valid_attributes
+        layer = V1::Layer.create! valid_attributes.merge(map: map)
 
         put :update, params: { map_slug: map.to_param, id: layer.to_param, v1_layer: valid_attributes }
         expect(response).to have_http_status(:ok)
@@ -80,7 +80,7 @@ RSpec.describe V1::LayersController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the v1_layer" do
-        layer = V1::Layer.create! valid_attributes
+        layer = V1::Layer.create! valid_attributes.merge(map: map)
 
         put :update, params: { map_slug: map.to_param, id: layer.to_param, v1_layer: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
@@ -91,7 +91,7 @@ RSpec.describe V1::LayersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested v1_layer" do
-      layer = V1::Layer.create! valid_attributes
+      layer = V1::Layer.create! valid_attributes.merge(map: map)
       expect {
         delete :destroy, params: { map_slug: map.to_param, id: layer.to_param }
       }.to change(V1::Layer, :count).by(-1)
