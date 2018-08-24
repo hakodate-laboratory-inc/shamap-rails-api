@@ -14,6 +14,10 @@ RSpec.describe V1::LayersController, type: :controller do
     FactoryBot.attributes_for(:invalid_v1_layer)
   }
 
+  let(:user) {
+    FactoryBot.create(:user)
+  }
+
   describe "GET #index" do
     it "returns a success response" do
       get :index, params: { map_slug: map.to_param }
@@ -30,6 +34,10 @@ RSpec.describe V1::LayersController, type: :controller do
   end
 
   describe "POST #create" do
+    before do
+      login_user user
+    end
+
     context "with valid params" do
       it "creates a new V1::Layer" do
         expect {
@@ -55,6 +63,10 @@ RSpec.describe V1::LayersController, type: :controller do
   end
 
   describe "PUT #update" do
+    before do
+      login_user user
+    end
+
     context "with valid params" do
       let(:new_attributes) {
         { name: "NewString",
@@ -90,6 +102,10 @@ RSpec.describe V1::LayersController, type: :controller do
   end
 
   describe "DELETE #destroy" do
+    before do
+      login_user user
+    end
+
     it "destroys the requested v1_layer" do
       layer = V1::Layer.create! valid_attributes.merge(map: map)
       expect {

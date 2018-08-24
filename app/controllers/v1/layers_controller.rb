@@ -1,4 +1,5 @@
 class V1::LayersController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_v1_map
   before_action :set_v1_layer, only: [:show, :update, :destroy]
 

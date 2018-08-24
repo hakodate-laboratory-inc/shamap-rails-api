@@ -29,11 +29,11 @@ RSpec.describe V1::MapsController, type: :controller do
   end
 
   describe "POST #create" do
-    context "with valid params" do
-      before do
-        login_user user
-      end
+    before do
+      login_user user
+    end
 
+    context "with valid params" do
       it "creates a new V1::Map" do
         expect {
           post :create, params: { v1_map: valid_attributes }
@@ -49,10 +49,6 @@ RSpec.describe V1::MapsController, type: :controller do
     end
 
     context "with invalid params" do
-      before do
-        login_user user
-      end
-
       it "renders a JSON response with errors for the new v1_map" do
         post :create, params: { v1_map: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
@@ -62,16 +58,16 @@ RSpec.describe V1::MapsController, type: :controller do
   end
 
   describe "PUT #update" do
+    before do
+      login_user user
+    end
+
     context "with valid params" do
       let(:new_attributes) {
         { title: "NewString",
           slug: "NewString",
           description: "NewText" }
       }
-
-      before do
-        login_user user
-      end
 
       it "updates the requested v1_map" do
         map = V1::Map.create! valid_attributes
@@ -91,10 +87,6 @@ RSpec.describe V1::MapsController, type: :controller do
     end
 
     context "with invalid params" do
-      before do
-        login_user user
-      end
-
       it "renders a JSON response with errors for the v1_map" do
         map = V1::Map.create! valid_attributes
 
