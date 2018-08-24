@@ -19,7 +19,7 @@ class V1::LayersController < ApplicationController
     @v1_layer = @v1_map.layers.new(v1_layer_params)
 
     if @v1_layer.save
-      render json: @v1_layer, status: :created, location: v1_map_layer_url(id: @v1_layer)
+      render json: @v1_layer, status: :created, location: v1_map_layer_url(slug: @v1_layer)
     else
       render json: @v1_layer.errors, status: :unprocessable_entity
     end
@@ -46,7 +46,7 @@ class V1::LayersController < ApplicationController
     end
 
     def set_v1_layer
-      @v1_layer = @v1_map.layers.find(params[:id])
+      @v1_layer = @v1_map.layers.find_by(slug: params[:slug])
     end
 
     def v1_layer_params

@@ -7,7 +7,7 @@ RSpec.describe V1::LayersController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(get: "/v1/maps/testmap/layers/1").to route_to("v1/layers#show", map_slug: "testmap", id: "1")
+      expect(get: "/v1/maps/testmap/layers/1").to route_to("v1/layers#show", map_slug: "testmap", slug: "1")
     end
 
     it "routes to #create" do
@@ -15,15 +15,15 @@ RSpec.describe V1::LayersController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/v1/maps/testmap/layers/1").to route_to("v1/layers#update", map_slug: "testmap", id: "1")
+      expect(put: "/v1/maps/testmap/layers/1").to route_to("v1/layers#update", map_slug: "testmap", slug: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/v1/maps/testmap/layers/1").to route_to("v1/layers#update", map_slug: "testmap", id: "1")
+      expect(patch: "/v1/maps/testmap/layers/1").to route_to("v1/layers#update", map_slug: "testmap", slug: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/v1/maps/testmap/layers/1").to route_to("v1/layers#destroy", map_slug: "testmap", id: "1")
+      expect(delete: "/v1/maps/testmap/layers/1").to route_to("v1/layers#destroy", map_slug: "testmap", slug: "1")
     end
   end
 end

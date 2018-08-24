@@ -24,7 +24,7 @@ RSpec.describe V1::LayersController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       layer = V1::Layer.create! valid_attributes.merge(map: map)
-      get :show, params: { map_slug: map.to_param, id: layer.to_param }
+      get :show, params: { map_slug: map.to_param, slug: layer.to_param }
       expect(response).to be_successful
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe V1::LayersController, type: :controller do
       it "updates the requested v1_layer" do
         layer = V1::Layer.create! valid_attributes.merge(map: map)
         expect {
-          put :update, params: { map_slug: map.to_param, id: layer.to_param, v1_layer: new_attributes }
+          put :update, params: { map_slug: map.to_param, slug: layer.to_param, v1_layer: new_attributes }
           layer.reload
         }.to change { layer.name }.from("MyString").to("NewString")
       end
@@ -72,7 +72,7 @@ RSpec.describe V1::LayersController, type: :controller do
       it "renders a JSON response with the v1_layer" do
         layer = V1::Layer.create! valid_attributes.merge(map: map)
 
-        put :update, params: { map_slug: map.to_param, id: layer.to_param, v1_layer: valid_attributes }
+        put :update, params: { map_slug: map.to_param, slug: layer.to_param, v1_layer: valid_attributes }
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq("application/json")
       end
@@ -82,7 +82,7 @@ RSpec.describe V1::LayersController, type: :controller do
       it "renders a JSON response with errors for the v1_layer" do
         layer = V1::Layer.create! valid_attributes.merge(map: map)
 
-        put :update, params: { map_slug: map.to_param, id: layer.to_param, v1_layer: invalid_attributes }
+        put :update, params: { map_slug: map.to_param, slug: layer.to_param, v1_layer: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq("application/json")
       end
@@ -93,7 +93,7 @@ RSpec.describe V1::LayersController, type: :controller do
     it "destroys the requested v1_layer" do
       layer = V1::Layer.create! valid_attributes.merge(map: map)
       expect {
-        delete :destroy, params: { map_slug: map.to_param, id: layer.to_param }
+        delete :destroy, params: { map_slug: map.to_param, slug: layer.to_param }
       }.to change(V1::Layer, :count).by(-1)
     end
   end
