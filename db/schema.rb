@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_02_064847) do
+ActiveRecord::Schema.define(version: 2018_08_23_061210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -46,4 +46,24 @@ ActiveRecord::Schema.define(version: 2018_08_02_064847) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "v1_layers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "map_id"
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["map_id"], name: "index_v1_layers_on_map_id"
+    t.index ["slug"], name: "index_v1_layers_on_slug", unique: true
+  end
+
+  create_table "v1_maps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_v1_maps_on_slug", unique: true
+  end
+
+  add_foreign_key "v1_layers", "v1_maps", column: "map_id"
 end
