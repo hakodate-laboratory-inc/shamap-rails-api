@@ -25,7 +25,7 @@
 #
 
 FactoryBot.define do
-  factory :v1_pin, class: 'V1::Pin' do
+  factory :v1_pin, class: "V1::Pin" do
     location "main"
     context "{text: 'hello'}"
   end
