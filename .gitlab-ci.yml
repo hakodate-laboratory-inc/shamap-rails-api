@@ -8,7 +8,7 @@ variables:
   POSTGRES_DB: shamap_test
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: ""
-  DATABASE_URL: "postgres://postgres:@mdillon-postgis/shamap_test"
+  DATABASE_URL: "postgis://postgres:@mdillon-postgis/shamap_test"
   BUNDLE_PATH: vendor/bundle
 
 before_script:
