@@ -21,6 +21,7 @@
 
 class V1::Layer < ApplicationRecord
   belongs_to :map, class_name: "V1::Map", inverse_of: "layers"
+  has_many :pins, class_name: "V1::Pin", inverse_of: "layer", dependent: :destroy
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
