@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_v1_layers_on_map_id  (map_id)
-#  index_v1_layers_on_slug    (slug) UNIQUE
+#  index_v1_layers_on_map_id           (map_id)
+#  index_v1_layers_on_map_id_and_slug  (map_id,slug) UNIQUE
 #
 # Foreign Keys
 #

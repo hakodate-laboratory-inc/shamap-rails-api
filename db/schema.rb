@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 2018_08_27_045153) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["map_id", "slug"], name: "index_v1_layers_on_map_id_and_slug", unique: true
     t.index ["map_id"], name: "index_v1_layers_on_map_id"
-    t.index ["slug"], name: "index_v1_layers_on_slug", unique: true
   end
 
   create_table "v1_maps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

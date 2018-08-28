@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_v1_layers_on_map_id  (map_id)
-#  index_v1_layers_on_slug    (slug) UNIQUE
+#  index_v1_layers_on_map_id           (map_id)
+#  index_v1_layers_on_map_id_and_slug  (map_id,slug) UNIQUE
 #
 # Foreign Keys
 #
@@ -24,7 +24,7 @@ class V1::Layer < ApplicationRecord
   has_many :pins, class_name: "V1::Pin", inverse_of: "layer", dependent: :destroy
 
   validates :name, presence: true
-  validates :slug, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: { scope: :map }
 
   def to_param
     slug
