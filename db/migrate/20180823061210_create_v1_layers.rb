@@ -8,6 +8,6 @@ class CreateV1Layers < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :v1_layers, :slug, unique: true
+    add_index :v1_layers, [:map_id, :slug], unique: true
   end
 end

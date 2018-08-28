@@ -40,6 +40,12 @@ RSpec.describe V1::MapsController, type: :controller do
         }.to change(V1::Map, :count).by(1)
       end
 
+      it "create with Layer" do
+        expect {
+          post :create, params: { v1_map: valid_attributes }
+        }.to change(V1::Layer, :count).by(1)
+      end
+
       it "renders a JSON response with the new v1_map" do
         post :create, params: { v1_map: valid_attributes }
         expect(response).to have_http_status(:created)

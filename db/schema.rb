@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_061210) do
+ActiveRecord::Schema.define(version: 2018_08_27_045153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -52,8 +53,8 @@ ActiveRecord::Schema.define(version: 2018_08_23_061210) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["map_id", "slug"], name: "index_v1_layers_on_map_id_and_slug", unique: true
     t.index ["map_id"], name: "index_v1_layers_on_map_id"
-    t.index ["slug"], name: "index_v1_layers_on_slug", unique: true
   end
 
   create_table "v1_maps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -65,5 +66,21 @@ ActiveRecord::Schema.define(version: 2018_08_23_061210) do
     t.index ["slug"], name: "index_v1_maps_on_slug", unique: true
   end
 
+  create_table "v1_pins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "map_id"
+    t.uuid "layer_id"
+    t.uuid "user_id"
+    t.geometry "location", limit: {:srid=>0, :type=>"st_point"}, null: false
+    t.jsonb "context", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["layer_id"], name: "index_v1_pins_on_layer_id"
+    t.index ["map_id"], name: "index_v1_pins_on_map_id"
+    t.index ["user_id"], name: "index_v1_pins_on_user_id"
+  end
+
   add_foreign_key "v1_layers", "v1_maps", column: "map_id"
+  add_foreign_key "v1_pins", "users"
+  add_foreign_key "v1_pins", "v1_layers", column: "layer_id"
+  add_foreign_key "v1_pins", "v1_maps", column: "map_id"
 end

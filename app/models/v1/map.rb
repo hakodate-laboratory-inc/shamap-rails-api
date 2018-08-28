@@ -16,12 +16,21 @@
 
 class V1::Map < ApplicationRecord
   has_many :layers, class_name: "V1::Layer", inverse_of: "map", dependent: :destroy
+  has_many :pins, class_name: "V1::Pin", inverse_of: "map", dependent: :destroy
 
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :description, presence: true
 
+  after_create :create_layer
+
   def to_param
     slug
   end
+
+  private
+
+    def create_layer
+      V1::Layer.create(map: self, name: "main", slug: "main")
+    end
 end
