@@ -26,7 +26,7 @@
 
 FactoryBot.define do
   factory :v1_pin, class: "V1::Pin" do
-    location "main"
+    location "POINT(41.814490 140.757198)"
     context "{text: 'hello'}"
   end
 end

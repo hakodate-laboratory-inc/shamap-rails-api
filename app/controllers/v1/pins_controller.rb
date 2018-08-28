@@ -1,9 +1,11 @@
 class V1::PinsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :set_v1_map
   before_action :set_v1_pin, only: [:show, :update, :destroy]
 
   # GET /v1/pins
   def index
-    @v1_pins = V1::Pin.all
+    @v1_pins = @v1_map.pins
 
     render json: @v1_pins
   end
@@ -15,10 +17,10 @@ class V1::PinsController < ApplicationController
 
   # POST /v1/pins
   def create
-    @v1_pin = V1::Pin.new(v1_pin_params)
+    @v1_pin = @v1_map.pins.new(v1_pin_params)
 
     if @v1_pin.save
-      render json: @v1_pin, status: :created, location: @v1_pin
+      render json: @v1_pin, status: :created, location: v1_map_pin_url(id: @v1_pin)
     else
       render json: @v1_pin.errors, status: :unprocessable_entity
     end
@@ -40,13 +42,15 @@ class V1::PinsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_v1_pin
-      @v1_pin = V1::Pin.find(params[:id])
+    def set_v1_map
+      @v1_map = V1::Map.find_by(slug: params[:map_slug])
     end
 
-    # Only allow a trusted parameter "white list" through.
+    def set_v1_pin
+      @v1_pin = @v1_map.pins.find(params[:id])
+    end
+
     def v1_pin_params
-      params.require(:v1_pin).permit(:map_id, :layer_id, :user_id, :location, :context)
+      params.require(:v1_pin).permit(:layer_id, :location, :context).merge(map: @v1_map, user: current_user)
     end
 end
