@@ -42,14 +42,14 @@ RSpec.describe V1::LayersController, type: :controller do
       it "creates a new V1::Layer" do
         expect {
           post :create, params: { map_slug: map.to_param, v1_layer: valid_attributes }
-        }.to change(V1::Layer, :count).by(1)
+        }.to change(V1::Layer, :count).by(2)
       end
 
       it "renders a JSON response with the new v1_layer" do
         post :create, params: { map_slug: map.to_param, v1_layer: valid_attributes }
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq("application/json")
-        expect(response.location).to eq(v1_map_layer_url(V1::Layer.last, map_slug: map.to_param))
+        expect(response.location).to eq(v1_map_layer_url(map.layers.find_by(slug: valid_attributes[:slug]), map_slug: map.to_param))
       end
     end
 
