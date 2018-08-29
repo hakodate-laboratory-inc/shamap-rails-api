@@ -31,7 +31,7 @@ class V1::Pin < ApplicationRecord
 
   def as_json(options = {})
     super(options.merge({
-      methods: [:latlng]
+      methods: [:latlng],
     }))
   end
 
