@@ -28,4 +28,14 @@ class V1::Pin < ApplicationRecord
   belongs_to :map, class_name: "V1::Map", inverse_of: "pins"
   belongs_to :layer, class_name: "V1::Layer", inverse_of: "pins"
   belongs_to :user
+
+  def as_json(options = {})
+    super(options.merge({
+      methods: [:latlng]
+    }))
+  end
+
+  def latlng
+    [self.location.x, self.location.y]
+  end
 end
