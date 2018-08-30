@@ -28,14 +28,23 @@ class V1::Pin < ApplicationRecord
   belongs_to :map, class_name: "V1::Map", inverse_of: "pins"
   belongs_to :layer, class_name: "V1::Layer", inverse_of: "pins"
   belongs_to :user
+  has_many_attached :images
 
   def as_json(options = {})
     super(options.merge({
-      methods: [:latlng],
+      methods: [:latlng, :image_url],
     }))
   end
 
   def latlng
     [self.location.x, self.location.y]
+  end
+
+  def image_url
+    if self.images.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(self.images.first, only_path: true)
+    else
+      nil
+    end
   end
 end
