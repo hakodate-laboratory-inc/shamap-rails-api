@@ -19,7 +19,7 @@ class V1::Map < ApplicationRecord
   has_many :pins, class_name: "V1::Pin", inverse_of: "map", dependent: :destroy
 
   validates :title, presence: true
-  validates :slug, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: true, format: { with: /\A\w+\z/ }, length: { in: 3..30 }
   validates :description, presence: true
 
   after_create :create_layer
