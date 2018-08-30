@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2018_08_27_045153) do
     t.uuid "layer_id"
     t.uuid "user_id"
     t.geometry "location", limit: {:srid=>0, :type=>"st_point"}, null: false
-    t.jsonb "context", null: false
+    t.jsonb "context", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["layer_id"], name: "index_v1_pins_on_layer_id"

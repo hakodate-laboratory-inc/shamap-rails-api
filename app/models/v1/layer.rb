@@ -24,7 +24,7 @@ class V1::Layer < ApplicationRecord
   has_many :pins, class_name: "V1::Pin", inverse_of: "layer", dependent: :destroy
 
   validates :name, presence: true
-  validates :slug, presence: true, uniqueness: { scope: :map }
+  validates :slug, presence: true, uniqueness: { scope: :map }, format: { with: /\A\w+\z/ }, length: { in: 3..30 }
 
   def to_param
     slug

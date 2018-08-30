@@ -3,7 +3,7 @@ require "faker"
 
 RSpec.describe V1::LayersController, type: :controller do
   let(:map) {
-    FactoryBot.create(:v1_map, slug: Faker::Address.country_code.downcase.delete(" "))
+    FactoryBot.create(:v1_map, slug: Faker::Address.country_code.downcase.delete(" ") * 2)
   }
 
   let(:valid_attributes) {

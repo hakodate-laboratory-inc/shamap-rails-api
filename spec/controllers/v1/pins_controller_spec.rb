@@ -3,11 +3,11 @@ require "faker"
 
 RSpec.describe V1::PinsController, type: :controller do
   let(:map) {
-    FactoryBot.create(:v1_map, slug: Faker::Address.country_code.downcase.delete(" "))
+    FactoryBot.create(:v1_map, slug: Faker::Address.country_code.downcase.delete(" ") * 2)
   }
 
   let(:layer) {
-    FactoryBot.create(:v1_layer, map: map, slug: Faker::Address.country_code.downcase.delete(" "))
+    FactoryBot.create(:v1_layer, map: map, slug: Faker::Address.country_code.downcase.delete(" ") * 2)
   }
 
   let(:valid_attributes) {
