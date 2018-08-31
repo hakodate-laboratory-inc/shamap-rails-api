@@ -8,7 +8,8 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins "localhost:3001",
-            /(.*--)?elegant-fermi-b93fc6\.netlify\.com/
+            "https://shamap.xyz",
+            %r{\Ahttps:\/\/.*--elegant-fermi-b93fc6\.netlify\.com\z}
 
     resource "*",
              headers: :any,
