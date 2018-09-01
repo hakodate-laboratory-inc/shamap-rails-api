@@ -9,7 +9,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins "localhost:3001",
             "https://shamap.xyz",
-            %r{\Ahttps:\/\/.*--elegant-fermi-b93fc6\.netlify\.com\z}
+            /\Ahttps:\/\/\w+--elegant-fermi-b93fc6\.netlify\.com\z/ # rubocop:disable Style/RegexpLiteral
 
     resource "*",
              headers: :any,
