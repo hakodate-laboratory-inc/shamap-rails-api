@@ -10,12 +10,15 @@ services:
       context: .
       dockerfile: web.Dockerfile
     env_file: .env
-    environment:
-      - BUNDLE_PATH=vendor/bundle
     command: bundle exec rails s -p ${WEB_PORT:-3000} -b '0.0.0.0'
     volumes:
       - .:/myapp
+      - gems:/usr/local/bundle
     ports:
       - ${WEB_PORT:-3000}:${WEB_PORT:-3000}
     links:
       - db
+
+volumes:
+  gems:
+    driver: local
