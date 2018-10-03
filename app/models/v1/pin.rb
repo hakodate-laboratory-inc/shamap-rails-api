@@ -44,7 +44,7 @@ class V1::Pin < ApplicationRecord
     if self.images.attached?
       {
         full: Rails.application.routes.url_helpers.rails_blob_path(self.images.first, only_path: true),
-        mini: Rails.application.routes.url_helpers.rails_representation_path(self.images.first.variant(resize: '500x500').processed, only_path: true),
+        mini: Rails.application.routes.url_helpers.rails_representation_path(self.images.first.variant(resize: "500x500").processed, only_path: true),
       }
     else
       nil
