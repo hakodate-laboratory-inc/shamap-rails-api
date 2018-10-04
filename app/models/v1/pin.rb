@@ -43,8 +43,14 @@ class V1::Pin < ApplicationRecord
   def image_url
     if self.images.attached?
       {
-        full: Rails.application.routes.url_helpers.rails_representation_path(self.images.first.variant(auto_orient: true).processed, only_path: true),
-        mini: Rails.application.routes.url_helpers.rails_representation_path(self.images.first.variant(resize: "500x500", auto_orient: true).processed, only_path: true),
+        full: Rails.application.routes.url_helpers.rails_representation_path(
+          self.images.first.variant(auto_orient: true).processed,
+          only_path: true,
+        ),
+        mini: Rails.application.routes.url_helpers.rails_representation_path(
+          self.images.first.variant(resize: "500x500", auto_orient: true).processed,
+          only_path: true,
+        ),
       }
     else
       nil
