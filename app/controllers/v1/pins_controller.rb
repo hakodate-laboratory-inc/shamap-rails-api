@@ -20,6 +20,10 @@ class V1::PinsController < ApplicationController
     @v1_pin = @v1_map.pins.new(v1_pin_params)
 
     if @v1_pin.save
+      ActionCable.server.broadcast(
+        @v1_map.slug,
+        new_pin: @v1_pin,
+      )
       render json: @v1_pin, status: :created, location: v1_map_pin_url(id: @v1_pin)
     else
       render json: @v1_pin.errors, status: :unprocessable_entity
