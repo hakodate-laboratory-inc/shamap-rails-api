@@ -51,6 +51,8 @@ class V1::PinsController < ApplicationController
     end
 
     def v1_pin_params
-      params.require(:v1_pin).permit(:layer_id, :location, :context, :images).merge(map: @v1_map, user: current_user)
+      new_params = params.require(:v1_pin).permit(:layer_id, :location, :context, :images).merge(map: @v1_map, user: current_user)
+      new_params["context"] = JSON.parse(new_params["context"])
+      return new_params
     end
 end
