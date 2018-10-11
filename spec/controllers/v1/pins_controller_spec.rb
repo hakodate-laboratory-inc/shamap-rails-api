@@ -14,6 +14,10 @@ RSpec.describe V1::PinsController, type: :controller do
     FactoryBot.attributes_for(:v1_pin, layer_id: layer.id)
   }
 
+  let(:valid_post_attributes) {
+    valid_attributes.merge({ context: JSON.generate(valid_attributes[:context]) })
+  }
+
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
   }
@@ -45,12 +49,12 @@ RSpec.describe V1::PinsController, type: :controller do
     context "with valid params" do
       it "creates a new V1::Pin" do
         expect {
-          post :create, params: { map_slug: map.to_param, v1_pin: valid_attributes }
+          post :create, params: { map_slug: map.to_param, v1_pin: valid_post_attributes }
         }.to change(V1::Pin, :count).by(1)
       end
 
       it "renders a JSON response with the new v1_pin" do
-        post :create, params: { map_slug: map.to_param, v1_pin: valid_attributes }
+        post :create, params: { map_slug: map.to_param, v1_pin: valid_post_attributes }
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq("application/json")
         expect(response.location).to eq(v1_map_pin_url(id: V1::Pin.last))
@@ -75,7 +79,7 @@ RSpec.describe V1::PinsController, type: :controller do
       let(:new_attributes) {
         { layer_id: layer.id,
           location: "POINT(41.841911 140.766970)",
-          context: "{'text': 'FUN'}" }
+          context: JSON.generate({ text: "FUN" }) }
       }
 
       it "updates the requested v1_pin" do
@@ -83,13 +87,13 @@ RSpec.describe V1::PinsController, type: :controller do
         expect {
           put :update, params: { map_slug: map.to_param, id: pin.to_param, v1_pin: new_attributes }
           pin.reload
-        }.to change { pin.context }.from("{text: 'hello'}").to("{'text': 'FUN'}")
+        }.to change { pin.context }.from({ "text" => "hello" }).to({ "text" => "FUN" })
       end
 
       it "renders a JSON response with the v1_pin" do
         pin = V1::Pin.create! valid_attributes.merge(map: map, layer: layer, user: user)
 
-        put :update, params: { map_slug: map.to_param, id: pin.to_param, v1_pin: valid_attributes }
+        put :update, params: { map_slug: map.to_param, id: pin.to_param, v1_pin: valid_post_attributes }
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq("application/json")
       end
