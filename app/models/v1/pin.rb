@@ -30,6 +30,8 @@ class V1::Pin < ApplicationRecord
   belongs_to :user
   has_many_attached :images
 
+  validate :images_validation
+
   def as_json(options = {})
     super(options.merge({
       methods: [:latlng, :image_url],
@@ -56,4 +58,17 @@ class V1::Pin < ApplicationRecord
       nil
     end
   end
+
+  private
+
+    def images_validation
+      return unless self.images.attached?
+
+      self.images.map do |img|
+        next if img.blob.content_type.start_with?("image/")
+
+        img.purge
+        errors[:base] << "Wrong format"
+      end
+    end
 end
