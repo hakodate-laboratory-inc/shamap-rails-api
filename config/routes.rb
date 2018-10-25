@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :pins
     end
   end
-  mount_devise_token_auth_for "User", at: "auth"
+  mount_devise_token_auth_for "User", at: "auth", controllers: {
+    registrations: "v1/auth/registrations",
+  }
   mount ActionCable.server => "/cable"
 end
