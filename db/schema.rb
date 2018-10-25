@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_30_070135) do
+ActiveRecord::Schema.define(version: 2018_10_25_060530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 2018_08_30_070135) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "authorities", force: :cascade do |t|
+    t.uuid "v1_map_id", null: false
+    t.uuid "user_id", null: false
+    t.integer "authority", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_authorities_on_user_id"
+    t.index ["v1_map_id", "user_id"], name: "index_authorities_on_v1_map_id_and_user_id", unique: true
+    t.index ["v1_map_id"], name: "index_authorities_on_v1_map_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -100,6 +111,8 @@ ActiveRecord::Schema.define(version: 2018_08_30_070135) do
     t.index ["user_id"], name: "index_v1_pins_on_user_id"
   end
 
+  add_foreign_key "authorities", "users"
+  add_foreign_key "authorities", "v1_maps"
   add_foreign_key "v1_layers", "v1_maps", column: "map_id"
   add_foreign_key "v1_pins", "users"
   add_foreign_key "v1_pins", "v1_layers", column: "layer_id"
