@@ -24,4 +24,6 @@
 class Authority < ApplicationRecord
   belongs_to :v1_map, class_name: "V1::Map"
   belongs_to :user, class_name: "User"
+  
+  enum authority: [:administrator, :contributor, :viewer]
 end
