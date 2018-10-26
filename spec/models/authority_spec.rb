@@ -21,7 +21,7 @@
 #  fk_rails_...  (v1_map_id => v1_maps.id)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Authority, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
