@@ -43,7 +43,7 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   validates :name, length: { in: 3..16 }
-  
+
   has_many :authorities, dependent: :destroy, inverse_of: :user
   has_many :maps, through: :authorities, source: :v1_map
 end
