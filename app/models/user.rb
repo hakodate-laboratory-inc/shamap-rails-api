@@ -44,6 +44,6 @@ class User < ApplicationRecord
 
   validates :name, length: { in: 3..16 }
   
-  has_many :authorities
+  has_many :authorities, dependent: :destroy, inverse_of: :user
   has_many :maps, through: :authorities, source: :v1_map
 end

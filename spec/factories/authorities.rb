@@ -23,7 +23,7 @@
 
 FactoryBot.define do
   factory :authority do
-    map nil
+    v1_map nil
     user nil
     authority 1
   end
