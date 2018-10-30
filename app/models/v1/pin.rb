@@ -32,16 +32,6 @@ class V1::Pin < ApplicationRecord
 
   validate :images_validation
 
-  def as_json(options = {})
-    super(options.merge({
-      methods: [:latlng, :image_url],
-    }))
-  end
-
-  def latlng
-    [self.location.x, self.location.y]
-  end
-
   def image_url
     if self.images.attached?
       {
