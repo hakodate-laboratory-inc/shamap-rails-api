@@ -26,6 +26,8 @@ RSpec.describe V1::PinsController, type: :controller do
     FactoryBot.create(:user)
   }
 
+  before { request.env["HTTP_ACCEPT"] = "application/json" }
+
   describe "GET #index" do
     it "returns a success response" do
       get :index, params: { map_slug: map.to_param }

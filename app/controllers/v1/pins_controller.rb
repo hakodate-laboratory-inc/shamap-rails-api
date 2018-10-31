@@ -6,8 +6,6 @@ class V1::PinsController < ApplicationController
   # GET /v1/pins
   def index
     @v1_pins = @v1_map.pins
-
-    render json: @v1_pins
   end
 
   # GET /v1/pins/1
