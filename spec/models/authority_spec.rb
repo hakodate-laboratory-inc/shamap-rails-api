@@ -24,5 +24,33 @@
 require "rails_helper"
 
 RSpec.describe Authority, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "Relation test" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:map) { FactoryBot.create(:v1_map) }
+    let(:authority) { FactoryBot.create(:authority, v1_map_id: map.id, user_id: user.id) }
+
+    before do
+      user.authorities << authority
+    end
+    context "relation exist" do
+      it "user.maps is equal" do
+        expect(user.maps.first).to eq(map)
+      end
+      it "map.users is equal" do
+        expect(map.users.first).to eq(user)
+      end
+    end
+
+    context "relation deleted" do
+      before do
+        user.authorities.destroy(authority)
+      end
+      it "user.maps is not found" do
+        expect(user.maps.first).to eq(nil)
+      end
+      it "map.users is not found" do
+        expect(map.users.first).to eq(nil)
+      end
+    end
+  end
 end
