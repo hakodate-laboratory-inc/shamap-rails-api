@@ -64,7 +64,7 @@ class V1::Pin < ApplicationRecord
     end
 
     def context_or_image_validation
-      unless images.attached? || context["text"].present? then
+      unless images.attached? || context["text"].present?
         errors.add(:base, "Should be contain image or text")
       end
     end

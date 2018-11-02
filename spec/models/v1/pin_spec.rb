@@ -28,7 +28,7 @@ require "rails_helper"
 
 RSpec.describe V1::Pin, type: :model do
   describe "Validation test" do
-    let(:pin) {FactoryBot.build(:v1_pin)}
+    let(:pin) { FactoryBot.build(:v1_pin) }
 
     before do
       pin.context = {}
@@ -36,7 +36,7 @@ RSpec.describe V1::Pin, type: :model do
 
     context "is success" do
       it "contain context.text" do
-        pin.context = {"text": "contain"}
+        pin.context = { "text": "contain" }
         expect(pin.valid?).to eq true
       end
       it "contain image" do
@@ -44,7 +44,7 @@ RSpec.describe V1::Pin, type: :model do
         expect(pin.valid?).to eq true
       end
       it "contain context.text and image" do
-        pin.context = {"text": "contain"}
+        pin.context = { "text": "contain" }
         pin.images = fixture_file_upload("files/test.jpg", "image/jpg")
         expect(pin.valid?).to eq true
       end
