@@ -55,6 +55,7 @@ class V1::Pin < ApplicationRecord
   private
     
     def context_validation
+      return if self.context.class == Hash
       begin
         self.context = JSON.parse self.context
       rescue => e
