@@ -18,6 +18,9 @@ class V1::Map < ApplicationRecord
   has_many :layers, class_name: "V1::Layer", inverse_of: "map", dependent: :destroy
   has_many :pins, class_name: "V1::Pin", inverse_of: "map", dependent: :destroy
 
+  has_many :authorities, foreign_key: :v1_map, dependent: :destroy, inverse_of: :v1_map
+  has_many :users, through: :authorities, source: :user
+
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: true, format: { with: /\A\w+\z/ }, length: { in: 3..30 }
   validates :description, presence: true
