@@ -31,6 +31,7 @@ class V1::Pin < ApplicationRecord
   has_many_attached :images
 
   validate :images_validation
+  validate :context_or_image_validation
 
   def image_url
     if self.images.attached?
@@ -59,6 +60,12 @@ class V1::Pin < ApplicationRecord
 
         img.purge
         errors[:base] << "Wrong format"
+      end
+    end
+
+    def context_or_image_validation
+      unless images.attached? || context["text"].present?
+        errors.add(:base, "Should be contain image or text")
       end
     end
 end

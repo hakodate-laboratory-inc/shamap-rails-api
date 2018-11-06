@@ -27,5 +27,33 @@
 require "rails_helper"
 
 RSpec.describe V1::Pin, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "Validation test" do
+    let(:pin) { FactoryBot.build(:v1_pin) }
+
+    before do
+      pin.context = {}
+    end
+
+    context "is success" do
+      it "contain context.text" do
+        pin.context = { "text": "contain" }
+        expect(pin.valid?).to eq true
+      end
+      it "contain image" do
+        pin.images = fixture_file_upload("files/test.jpg", "image/jpg")
+        expect(pin.valid?).to eq true
+      end
+      it "contain context.text and image" do
+        pin.context = { "text": "contain" }
+        pin.images = fixture_file_upload("files/test.jpg", "image/jpg")
+        expect(pin.valid?).to eq true
+      end
+    end
+
+    context "is fail" do
+      it "not contain context.text and image" do
+        expect(pin.valid?).to eq false
+      end
+    end
+  end
 end
