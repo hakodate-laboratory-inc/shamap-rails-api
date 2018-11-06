@@ -37,7 +37,7 @@ RSpec.describe V1::PinsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      pin = V1::Pin.create! valid_attributes.merge(map: map, layer: layer, user: user)
+      pin = V1::Pin.create! valid_post_attributes.merge(map: map, layer: layer, user: user)
       get :show, params: { map_slug: map.to_param, id: pin.to_param }
       expect(response).to be_successful
     end
@@ -85,7 +85,7 @@ RSpec.describe V1::PinsController, type: :controller do
       }
 
       it "updates the requested v1_pin" do
-        pin = V1::Pin.create! valid_attributes.merge(map: map, layer: layer, user: user)
+        pin = V1::Pin.create! valid_post_attributes.merge(map: map, layer: layer, user: user)
         expect {
           put :update, params: { map_slug: map.to_param, id: pin.to_param, v1_pin: new_attributes }
           pin.reload
@@ -93,7 +93,7 @@ RSpec.describe V1::PinsController, type: :controller do
       end
 
       it "renders a JSON response with the v1_pin" do
-        pin = V1::Pin.create! valid_attributes.merge(map: map, layer: layer, user: user)
+        pin = V1::Pin.create! valid_post_attributes.merge(map: map, layer: layer, user: user)
 
         put :update, params: { map_slug: map.to_param, id: pin.to_param, v1_pin: valid_post_attributes }
         expect(response).to have_http_status(:ok)
@@ -103,7 +103,7 @@ RSpec.describe V1::PinsController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the v1_pin" do
-        pin = V1::Pin.create! valid_attributes.merge(map: map, layer: layer, user: user)
+        pin = V1::Pin.create! valid_post_attributes.merge(map: map, layer: layer, user: user)
 
         put :update, params: { map_slug: map.to_param, id: pin.to_param, v1_pin: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
@@ -118,7 +118,7 @@ RSpec.describe V1::PinsController, type: :controller do
     end
 
     it "destroys the requested v1_pin" do
-      pin = V1::Pin.create! valid_attributes.merge(map: map, layer: layer, user: user)
+      pin = V1::Pin.create! valid_post_attributes.merge(map: map, layer: layer, user: user)
       expect {
         delete :destroy, params: { map_slug: map.to_param, id: pin.to_param }
       }.to change(V1::Pin, :count).by(-1)
