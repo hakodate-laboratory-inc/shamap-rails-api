@@ -53,13 +53,6 @@ class V1::PinsController < ApplicationController
     end
 
     def v1_pin_params
-      new_params = params.require(:v1_pin).permit(:layer_id, :location, :context, :images).merge(map: @v1_map, user: current_user)
-      begin
-        new_params["context"] = JSON.parse(new_params["context"])
-      rescue => e
-        new_params["context"] = {}
-        # TODO: add error message and render
-      end
-      new_params
+      params.require(:v1_pin).permit(:layer_id, :location, :context, :images).merge(map: @v1_map, user: current_user)
     end
 end

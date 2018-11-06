@@ -30,6 +30,8 @@ class V1::Pin < ApplicationRecord
   belongs_to :user
   has_many_attached :images
 
+  validates :location, presence: true
+  validate :context_validation
   validate :images_validation
   validate :context_or_image_validation
 
@@ -51,6 +53,15 @@ class V1::Pin < ApplicationRecord
   end
 
   private
+    
+    def context_validation
+      begin
+        self.context = JSON.parse self.context
+      rescue => e
+        self.context = {}
+        errors[:context] << "context can't parse as json"
+      end
+    end
 
     def images_validation
       return unless self.images.attached?
