@@ -22,7 +22,6 @@ class V1::PinsController < ApplicationController
         @v1_map.slug,
         new_pin: @v1_pin,
       )
-      render json: @v1_pin, status: :created, location: v1_map_pin_url(id: @v1_pin)
     else
       render json: @v1_pin.errors, status: :unprocessable_entity
     end
