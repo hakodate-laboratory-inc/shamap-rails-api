@@ -53,12 +53,13 @@ class V1::Pin < ApplicationRecord
   end
 
   private
-    
+
     def context_validation
       return if self.context.class == Hash
+
       begin
         self.context = JSON.parse self.context
-      rescue => e
+      rescue
         self.context = {}
         errors[:context] << "context can't parse as json"
       end
