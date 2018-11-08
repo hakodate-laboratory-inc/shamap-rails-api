@@ -30,6 +30,6 @@ FactoryBot.define do
     map { FactoryBot.build(:v1_map) }
     layer { FactoryBot.build(:v1_layer) }
     location "POINT(41.814490 140.757198)"
-    context({ text: "hello" })
+    context (JSON.generate({ text: "hello" }))
   end
 end
