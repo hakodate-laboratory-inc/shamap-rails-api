@@ -15,7 +15,7 @@ before_script:
   - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake nodejs
   - ruby -v
   - which ruby
-  - gem install bundler --no-ri --no-rdoc
+  - gem install bundler --no-document
   - bundle install --jobs $(nproc)
   - bundle exec rake db:create db:schema:load
 
