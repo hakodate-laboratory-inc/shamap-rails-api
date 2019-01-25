@@ -58,8 +58,7 @@ class V1::PinsController < ApplicationController
     end
 
     def ristrict_invalid_user
-      if @v1_pin.user != current_user and \
-      !(ENV["SHAMAP_ADMINS"].split(",").include?(@v1_pin.user))
+      if @v1_pin.user != current_user && !is_admin?
         head :forbidden
       end
     end
