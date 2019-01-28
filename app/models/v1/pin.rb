@@ -37,8 +37,15 @@ class V1::Pin < ApplicationRecord
 
   def as_json(options = {})
     super(options.merge({
-      methods: [:latlng, :image_url],
+      methods: [:author, :latlng, :image_url],
     }))
+  end
+
+  def author
+    {
+      id: self.user.id,
+      name: self.user.name,
+    }
   end
 
   def latlng
