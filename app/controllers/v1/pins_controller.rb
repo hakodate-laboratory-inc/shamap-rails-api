@@ -58,7 +58,7 @@ class V1::PinsController < ApplicationController
     end
 
     def ristrict_invalid_user
-      if @v1_pin.user != current_user && !is_admin?
+      unless @v1_pin.user == current_user || admin?(current_user.email)
         head :forbidden
       end
     end

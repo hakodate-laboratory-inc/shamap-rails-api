@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-  def admin?(user)
-    ENV["SHAMAP_ADMINS"].split(",").include?(@v1_pin.user)
+  def admin?(email)
+    ENV["SHAMAP_ADMINS"].split(",").include?(email)
   end
 end
