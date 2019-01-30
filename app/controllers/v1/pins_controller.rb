@@ -2,6 +2,7 @@ class V1::PinsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_v1_map
   before_action :set_v1_pin, only: [:show, :update, :destroy]
+  before_action :ristrict_invalid_user, only: [:update, :destroy]
 
   # GET /v1/pins
   def index
@@ -54,5 +55,11 @@ class V1::PinsController < ApplicationController
 
     def v1_pin_params
       params.require(:v1_pin).permit(:layer_id, :location, :context, :images).merge(map: @v1_map, user: current_user)
+    end
+
+    def ristrict_invalid_user
+      unless @v1_pin.user == current_user || admin?(current_user.email)
+        head :forbidden
+      end
     end
 end

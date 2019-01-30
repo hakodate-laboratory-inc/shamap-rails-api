@@ -8,7 +8,10 @@ Share your map.
 ## Development
 You have to execute like below at first.
 ```shell
-touch .env
+cat <<EOF > .env
+RAILS_MASTER_KEY="ask member"
+SHAMAP_ADMINS=aiko.takamori@mishiro.pro,koume.shirasaka@mishiro.pro
+EOF
 
 # pre-commit
 bundle exec pre-commit install
